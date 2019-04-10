@@ -1,0 +1,23 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Add Person</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+</head>
+
+<body>
+<ul class="breadcrumb">
+    <li class="active"><a>Home</a></li>
+    <li><a th:href="@{/country/list}">List</a></li>
+    <li><a th:href="@{/country/create}">Create Country</a> </li>
+</ul>
+<h1 style="margin-left: 10px">Edit Name</h1>
+<form action="#" method="post">
+    Name:
+    <input type="text" placeholder="Enter New Country" name="edited" value=""/>
+    <input type="submit" value="Update"/><br/>
+    <a href="/country/list">Back to list</a>
+</form>
+</body>
+</html>
