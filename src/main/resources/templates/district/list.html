@@ -1,0 +1,37 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Title</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+</head>
+<body>
+<ul class="breadcrumb">
+    <li><a th:href="@{/}">Home</a></li>
+    <li><a th:href="@{/country/list}">Country List</a></li>
+    <li><a th:href="@{/city/list}">City List</a></li>
+    <li class="active"><a>District List</a></li>
+</ul>
+</body>
+<h1>District List</h1>
+<a th:href="@{/city/list}">Back to city list</a>
+<div>
+    <table class="table">
+        <tr>
+            <th>City ID</th>
+            <th>District</th>
+            <th>Code</th>
+            <th>Edit</th>
+        </tr>
+        <tr th:each="d_list : ${districtList}">
+            <td th:utext="${d_list.id}" hidden="true"></td>
+            <td th:utext="${d_list.cityId}"></td>
+            <td th:utext="${d_list.districtName}"></td>
+            <td th:utext="${d_list.districtCode}"></td>
+            <td>
+                <button><a th:href="@{/district/} + ${d_list.id} + @{/edit}">Edit</a></button>
+            </td>
+        </tr>
+    </table>
+</div>
+</html>

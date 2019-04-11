@@ -28,13 +28,14 @@ public class CountryController {
     @PostMapping("/create")
     public String saveCountry(@RequestParam("country") String countryCreated, @RequestParam("countryCode") String countryCode, Model model){
         if(countryCreated == null || countryCode == null || countryCreated.isEmpty() || countryCode.isEmpty()){
-            return "country/create";
+            model.addAttribute("errormessage", "Content couldn't be empty!!!");
         }
         else {
             CountryModel countrySubmit = new CountryModel(countryCreated, countryCode, ++autoId);
             countryModelList.add(countrySubmit);
+            model.addAttribute("successmassage", "Successfully created!");
         }
-        return "redirect:/country/list";
+        return "country/create";
     }
 
     @GetMapping("/edit/{id}")
@@ -43,19 +44,20 @@ public class CountryController {
     }
 
     @PostMapping("/edit/{id}")
-    public String editName(@RequestParam("editedCountry") String editedCountry, @RequestParam("editedCode") String editedCode, @PathVariable("id") Integer idEdit ){
+    public String editName(@RequestParam("editedCountry") String editedCountry, @RequestParam("editedCode") String editedCode,
+                           @PathVariable("id") Integer idEdit, Model model ){
         if(editedCountry == null || editedCode == null || editedCountry.isEmpty()  || editedCode.isEmpty()){
-            return "country/edit";
+            model.addAttribute("errormessage", "Content couldn't be empty!!!");
         }
         else {
             for (CountryModel countryModel : countryModelList){
                 if(countryModel.getId().equals(idEdit)){
                     countryModel.setCountryName(editedCountry);
                     countryModel.setCountryCode(editedCode);
+                    model.addAttribute( "successmassage", "Successfully edited!");
                 }
             }
         }
-        return "redirect:/country/list";
+        return "country/edit";
     }
-
 }

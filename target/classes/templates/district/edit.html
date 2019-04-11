@@ -12,16 +12,16 @@
     <li><a th:href="@{/city/list}">City List</a></li>
     <li><a th:href="@{/district/list}">District List</a></li>
 </ul>
-<h1 style="margin-left: 10px">Edit City</h1>
+<h1 style="margin-left: 10px">Edit District</h1>
 <form action="#" method="post">
-    City:
-    <input type="text" placeholder="Enter New City" name="editedCity" value=""/>
+    District:
+    <input type="text" placeholder="Enter New District" name="editedDistrict" value=""/>
     Code:
-    <input type="text" placeholder="Ex: Da Nang = DN" name="editedCode" value=""/>
+    <input type="text" placeholder="Ex: Hai Chau = HC" name="editedCode" value=""/>
     <input type="submit" value="Update"/><br/>
     <p th:utext="${successmassage}" style="color: green; font-style: italic" />
     <p th:utext="${errormessage}" style="color: red; font-style: italic"/>
-    <a href="/city/list">Back to city list</a>
+    <a th:href="@{/district/list}">Back to district list</a>
 </form>
 </body>
 </html>

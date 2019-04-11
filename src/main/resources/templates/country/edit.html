@@ -5,12 +5,12 @@
     <title>Add Person</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 </head>
-
 <body>
 <ul class="breadcrumb">
     <li><a th:href="@{/}">Home</a></li>
-    <li><a th:href="@{/country/list}">Country List</a></li>
-    <li><a th:href="@{/country/create}">Create Country</a> </li>
+    <li><a th:href="@{/city/list/}">Country List</a></li>
+    <li><a th:href="@{/city/list}">City List</a></li>
+    <li><a th:href="@{/district/list}">District List</a></li>
 </ul>
 <h1 style="margin-left: 10px">Edit Country</h1>
 <form action="#" method="post">
@@ -19,8 +19,9 @@
     Code:
     <input type="text" placeholder="Ex: Viet Nam = VIE" name="editedCode" value=""/>
     <input type="submit" value="Update"/><br/>
+    <p th:utext="${successmassage}" style="color: green; font-style: italic" />
+    <p th:utext="${errormessage}" style="color: red; font-style: italic"/>
     <a href="/country/list">Back to country list</a>
-    <a href="/city/list">Back to city list</a>
 </form>
 </body>
 </html>

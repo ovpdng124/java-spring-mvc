@@ -6,19 +6,9 @@ public class CountryModel {
     private String countryCode;
     private Integer id;
 
-
     public CountryModel(String countryName, String countryCode, Integer id) {
         this.countryName = countryName;
         this.countryCode = countryCode;
-        this.id = id;
-    }
-
-    public CountryModel(String countryName) {
-        this.countryName = countryName;
-    }
-
-    public CountryModel(String countryName, Integer id) {
-        this.countryName = countryName;
         this.id = id;
     }
 

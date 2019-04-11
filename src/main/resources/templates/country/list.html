@@ -10,10 +10,10 @@
     <li><a th:href="@{/}">Home</a></li>
     <li class="active"><a>Country List</a></li>
     <li><a th:href="@{/city/list}">City List</a></li>
-
+    <li><a th:href="@{/district/list}">District List</a></li>
 </ul>
 </body>
-<h1>List</h1>
+<h1>Country List</h1>
 <a th:href="@{/country/create}">Create Country</a>
 <div>
     <table class="table">
@@ -21,10 +21,9 @@
             <th>Country</th>
             <th>Code</th>
             <th>Edit</th>
-            <th>City</th>
+            <th>List</th>
             <th>Create</th>
         </tr>
-
         <tr th:each="c_list : ${countryList}">
             <td th:utext="${c_list.id}" hidden="true"></td>
             <td th:utext="${c_list.countryName}"></td>
@@ -33,14 +32,11 @@
                 <button><a th:href="@{/country/edit/} + ${c_list.id}">Edit</a></button>
             </td>
             <td>
-                <button><a th:href="@{/city/} + ${c_list.countryName} + @{/} + ${c_list.id} + @{/} + ${c_list.countryCode} + @{/list}">City</a> </button>
+                <button><a th:href="@{/city/} + ${c_list.id} + @{/list}">City</a> </button>
             </td>
             <td>
-                <button><a th:href="@{/city/} + ${c_list.countryName} + @{/} + ${c_list.id} + @{/} + ${c_list.countryCode} + @{/create}">Create City</a> </button>
+                <button><a th:href="@{/city/} + ${c_list.id} + @{/create}">Create City</a> </button>
             </td>
         </tr>
-
     </table>
-
-
 </html>

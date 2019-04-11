@@ -10,7 +10,7 @@
     <li><a th:href="@{/}">Home</a></li>
     <li><a th:href="@{/country/list}">Country List</a></li>
     <li class="active"><a>City List</a></li>
-
+    <li><a th:href="@{/district/list}">District List</a></li>
 </ul>
 </body>
 <h1>City List</h1>
@@ -18,25 +18,28 @@
 <div>
     <table class="table">
         <tr>
-            <th>Country</th>
+            <th>Country ID</th>
             <th>City</th>
             <th>Code</th>
-
-
+            <th>Edit</th>
+            <th>List</th>
+            <th>Create</th>
         </tr>
-
         <tr th:each="ci_list : ${cityList}">
             <td th:utext="${ci_list.id}" hidden="true"></td>
-            <td th:utext="${ci_list.countryCode}"></td>
+            <td th:utext="${ci_list.countryId}"></td>
             <td th:utext="${ci_list.cityName}"></td>
             <td th:utext="${ci_list.cityCode}"></td>
             <td>
                 <button><a th:href="@{/city/} + ${ci_list.id} + @{/edit}">Edit</a></button>
             </td>
+            <td>
+                <button><a th:href="@{/district/} + ${ci_list.id} + @{/list}">District</a></button>
+            </td>
+            <td>
+                <button><a th:href="@{/district/} + ${ci_list.id} + @{/create}">Create District</a></button>
+            </td>
         </tr>
-
-
-
     </table>
 </div>
 </html>

@@ -1,8 +1,8 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8"/>
-    <title>Add Person</title>
+    <meta charset="UTF-8">
+    <title>Title</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 </head>
 <body>
@@ -12,16 +12,16 @@
     <li><a th:href="@{/city/list}">City List</a></li>
     <li><a th:href="@{/district/list}">District List</a></li>
 </ul>
-<h1 style="margin-left: 10px">Edit City</h1>
+<h1>Create District</h1>
 <form action="#" method="post">
-    City:
-    <input type="text" placeholder="Enter New City" name="editedCity" value=""/>
+    Create distric:
+    <input type="text" placeholder="Enter District Name" name="district" value=""/>
     Code:
-    <input type="text" placeholder="Ex: Da Nang = DN" name="editedCode" value=""/>
-    <input type="submit" value="Update"/><br/>
+    <input type="text" placeholder="Ex: Thanh Khe = TK" name="districtCode" value=""/>
+    <input type="submit" value="Create"/><br/>
     <p th:utext="${successmassage}" style="color: green; font-style: italic" />
     <p th:utext="${errormessage}" style="color: red; font-style: italic"/>
-    <a href="/city/list">Back to city list</a>
+    <a th:href="@{/city/list}">Back to city list</a><br/>
 </form>
 </body>
 </html>

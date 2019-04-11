@@ -20,11 +20,11 @@ public class CityController {
         return "city/list";
     }
 
-    @GetMapping("/{country}/{countryId}/{countryCode}/list")
-    public String showCityList(@PathVariable Integer countryId, @PathVariable String country, @PathVariable String countryCode, Model model) {
+    @GetMapping("/{countryId}/list")
+    public String showCityList(@PathVariable Integer countryId, Model model) {
         List<CityModel> cityCountryList = new ArrayList<CityModel>();
-        for(CityModel scan : cityModelList){
-            if(scan.getCountryId().equals(countryId) && scan.getCountry().equals(country) || scan.getCountryCode().equals(countryCode)){
+        for (CityModel scan : cityModelList) {
+            if (scan.getCountryId().equals(countryId)) {
                 cityCountryList.add(scan);
                 model.addAttribute("cityList", cityCountryList);
             }
@@ -32,46 +32,48 @@ public class CityController {
         return "city/list";
     }
 
-    @GetMapping("/{country}/{countryId}/{countryCode}/create")
+    @GetMapping("/{countryId}/create")
     public String showCreatePage() {
         return "city/create";
     }
 
-    @PostMapping("/{country}/{countryId}/{countryCode}/create")
-    public String saveCity(@PathVariable String country, @PathVariable String countryCode, @PathVariable Integer countryId, @RequestParam("city") String cityCreated, @RequestParam("cityCode") String cityCode) {
-        if (country == null || country.isEmpty()) {
+    @PostMapping("/{countryId}/create")
+    public String saveCity(@PathVariable Integer countryId,
+                           @RequestParam("city") String cityCreated, @RequestParam("cityCode") String cityCode, Model model) {
+        if (countryId == null || countryId < 0) {
             return "city/list";
         } else {
             if (cityCreated == null || cityCode == null || cityCreated.isEmpty() || cityCode.isEmpty()) {
-                return "city/create";
+                model.addAttribute("errormessage", "Content couldn't be empty!!!");
             } else {
-                CityModel cityModelSubmit = new CityModel(cityCreated, cityCode, country, countryCode, countryId, ++autoId);
+                CityModel cityModelSubmit = new CityModel(cityCreated, cityCode, countryId, ++autoId);
                 cityModelList.add(cityModelSubmit);
+                model.addAttribute("successmassage", "Successfully created!");
             }
         }
-        return "redirect:/city/{country}/{countryId}/{countryCode}/list";
+        return "city/create";
     }
 
     @GetMapping("/{cityId}/edit")
-    public String showEditPage(){
+    public String showEditPage() {
         return "city/edit";
     }
 
     @PostMapping("/{cityId}/edit")
     public String saveCityEdited(@PathVariable Integer cityId,
                                  @RequestParam("editedCity") String editedCity,
-                                 @RequestParam("editedCode") String editedCode){
-        if(editedCity == null || editedCode == null || editedCity.isEmpty() || editedCode.isEmpty()){
-            return "city/list";
-        }else {
-            for(CityModel edit : cityModelList)
-                if(edit.getId().equals(cityId)){
+                                 @RequestParam("editedCode") String editedCode, Model model) {
+        if (editedCity == null || editedCode == null || editedCity.isEmpty() || editedCode.isEmpty()) {
+            model.addAttribute("errormessage", "Content couldn't be empty!!!");
+        } else {
+            for (CityModel edit : cityModelList)
+                if (edit.getId().equals(cityId)) {
                     edit.setCityName(editedCity);
                     edit.setCityCode(editedCode);
+                    model.addAttribute("successmassage", "Successfully edited!");
                 }
         }
-        return "redirect:/city/list";
+        return "city/edit";
     }
-
 }
 
