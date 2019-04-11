@@ -30,7 +30,11 @@
             <td th:utext="${ci_list.countryCode}"></td>
             <td th:utext="${ci_list.cityName}"></td>
             <td th:utext="${ci_list.cityCode}"></td>
+            <td>
+                <button><a th:href="@{/city/} + ${ci_list.id} + @{/edit}">Edit</a></button>
+            </td>
         </tr>
+
 
 
     </table>

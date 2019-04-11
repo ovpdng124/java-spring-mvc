@@ -5,10 +5,20 @@ public class CityModel {
     private String cityCode;
     private String country;
     private String countryCode;
+    private Integer countryId;
     private Integer id;
 
     public CityModel(String country) {
         this.country = country;
+    }
+
+    public CityModel(String cityName, String cityCode, String country, String countryCode, Integer countryId, Integer id) {
+        this.cityName = cityName;
+        this.cityCode = cityCode;
+        this.country = country;
+        this.countryCode = countryCode;
+        this.countryId = countryId;
+        this.id = id;
     }
 
     public CityModel(String cityName, String cityCode, String country, String countryCode, Integer id) {
@@ -85,5 +95,13 @@ public class CityModel {
 
     public void setCountryCode(String countryCode) {
         this.countryCode = countryCode;
+    }
+
+    public Integer getCountryId() {
+        return countryId;
+    }
+
+    public void setCountryId(Integer countryId) {
+        this.countryId = countryId;
     }
 }

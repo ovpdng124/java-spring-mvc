@@ -12,7 +12,7 @@
     <li><a th:href="@{/country/list}">Country List</a></li>
     <li><a th:href="@{/country/create}">Create Country</a> </li>
 </ul>
-<h1 style="margin-left: 10px">Edit Name</h1>
+<h1 style="margin-left: 10px">Edit Country</h1>
 <form action="#" method="post">
     Country:
     <input type="text" placeholder="Enter New Country" name="editedCountry" value=""/>
@@ -20,6 +20,7 @@
     <input type="text" placeholder="Ex: Viet Nam = VIE" name="editedCode" value=""/>
     <input type="submit" value="Update"/><br/>
     <a href="/country/list">Back to country list</a>
+    <a href="/city/list">Back to city list</a>
 </form>
 </body>
 </html>
