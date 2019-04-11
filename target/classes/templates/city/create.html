@@ -8,18 +8,19 @@
 <body>
 <ul class="breadcrumb">
     <li><a th:href="@{/}">Home</a></li>
-    <li><a th:href="@{/country/list/}">Country List</a></li>
+    <li><a th:href="@{/city/list/}">Country List</a></li>
     <li><a th:href="@{/city/list}">City List</a></li>
 
 </ul>
-<h1>Create Country</h1>
+<h1>Create City</h1>
 <form action="#" method="post">
-    Create country:
-    <input type="text" placeholder="Enter Country" name="country" value=""/>
+    Create city:
+    <input type="text" placeholder="Enter City Name" name="city" value=""/>
     Code:
-    <input type="text" placeholder="Ex: United States = USA" name="countryCode" value=""/>
+    <input type="text" placeholder="Ex: New York = NY" name="cityCode" value=""/>
     <input type="submit" value="Create"/><br/>
-    <a href="/country/list">Back to country list</a>
+    <a th:href="@{/country/list}">Go to country list</a><br/>
+    <a th:href="@{/city/list}">Go to city list</a>
 </form>
 
 </body>

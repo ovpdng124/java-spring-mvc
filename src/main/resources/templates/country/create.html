@@ -7,15 +7,19 @@
 </head>
 <body>
 <ul class="breadcrumb">
-    <li class="active"><a>Home</a></li>
-    <li><a th:href="@{/country/list/}">List</a></li>
+    <li><a th:href="@{/}">Home</a></li>
+    <li><a th:href="@{/country/list/}">Country List</a></li>
+    <li><a th:href="@{/city/list}">City List</a></li>
+
 </ul>
-<h1>Create Name</h1>
+<h1>Create Country</h1>
 <form action="#" method="post">
     Create country:
     <input type="text" placeholder="Enter Country" name="country" value=""/>
+    Code:
+    <input type="text" placeholder="Ex: United States = USA" name="countryCode" value=""/>
     <input type="submit" value="Create"/><br/>
-    <a href="/name/list">Back to list</a>
+    <a href="/country/list">Back to country list</a>
 </form>
 
 </body>

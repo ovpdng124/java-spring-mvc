@@ -26,12 +26,12 @@ public class CountryController {
     }
 
     @PostMapping("/create")
-    public String createName(@RequestParam("country") String countryCreated, Model model){
-        if(countryCreated == null || countryCreated.isEmpty()){
+    public String saveCountry(@RequestParam("country") String countryCreated, @RequestParam("countryCode") String countryCode, Model model){
+        if(countryCreated == null || countryCode == null || countryCreated.isEmpty() || countryCode.isEmpty()){
             return "country/create";
         }
         else {
-            CountryModel countrySubmit = new CountryModel(countryCreated, ++autoId);
+            CountryModel countrySubmit = new CountryModel(countryCreated, countryCode, ++autoId);
             countryModelList.add(countrySubmit);
         }
         return "redirect:/country/list";
@@ -43,14 +43,15 @@ public class CountryController {
     }
 
     @PostMapping("/edit/{id}")
-    public String editName(@RequestParam("edited") String countryEdited, @PathVariable("id") Integer idEdit, Model modelEdit ){
-        if(countryEdited == null || countryEdited.isEmpty()){
+    public String editName(@RequestParam("editedCountry") String editedCountry, @RequestParam("editedCode") String editedCode, @PathVariable("id") Integer idEdit ){
+        if(editedCountry == null || editedCode == null || editedCountry.isEmpty()  || editedCode.isEmpty()){
             return "country/edit";
         }
         else {
             for (CountryModel countryModel : countryModelList){
                 if(countryModel.getId().equals(idEdit)){
-                    countryModel.setCountryName(countryEdited);
+                    countryModel.setCountryName(editedCountry);
+                    countryModel.setCountryCode(editedCode);
                 }
             }
         }
