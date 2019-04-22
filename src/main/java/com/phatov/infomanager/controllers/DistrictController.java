@@ -1,5 +1,6 @@
 package com.phatov.infomanager.controllers;
 
+import com.phatov.infomanager.models.CityModel;
 import com.phatov.infomanager.models.DistrictModel;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,6 +13,7 @@ import java.util.List;
 @RequestMapping("/district")
 public class DistrictController {
     public static List<DistrictModel> districtModelList = new ArrayList<DistrictModel>();
+    public static List<DistrictModel> validateList = new ArrayList<DistrictModel>();
     public static Integer autoId = 0;
 
     @GetMapping("/list")
@@ -44,7 +46,16 @@ public class DistrictController {
         } else {
             DistrictModel districtModel = new DistrictModel(districtCreated, districtCode, ++autoId, cityId);
             districtModelList.add(districtModel);
-            model.addAttribute("successmassage", "Successfully created!");
+            for (DistrictModel validate : validateList) {
+                if (validate.getDistrictName().equals(districtCreated) && validate.getDistrictCode().equals(districtCode) && validate.getCityId().equals(cityId)) {
+                    model.addAttribute("validatemessage", "District name and district code already exist!!");
+                    districtModelList.remove(districtModel);
+                }
+            }
+            if (districtModelList.contains(districtModel)) {
+                model.addAttribute("successmassage", "Successfully created!");
+                validateList.add(districtModel);
+            }
         }
         return "district/create";
     }

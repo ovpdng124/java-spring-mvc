@@ -12,6 +12,7 @@ import java.util.List;
 @RequestMapping("/country")
 public class CountryController {
     public static List<CountryModel> countryModelList = new ArrayList<CountryModel>();
+    public static List<CountryModel> validateList = new ArrayList<CountryModel>();
     public static Integer autoId = 0;
 
     @GetMapping("/list")
@@ -33,7 +34,16 @@ public class CountryController {
         else {
             CountryModel countrySubmit = new CountryModel(countryCreated, countryCode, ++autoId);
             countryModelList.add(countrySubmit);
-            model.addAttribute("successmassage", "Successfully created!");
+            for(CountryModel validate : validateList){
+                if(validate.getCountryName().equals(countryCreated) && validate.getCountryCode().equals(countryCode)){
+                    model.addAttribute("validatemessage", "Country name and country code already exist!!");
+                    countryModelList.remove(countrySubmit);
+                }
+            }
+            if(countryModelList.contains(countrySubmit)){
+                model.addAttribute("successmassage", "Successfully created!");
+                validateList.add(countrySubmit);
+            }
         }
         return "country/create";
     }

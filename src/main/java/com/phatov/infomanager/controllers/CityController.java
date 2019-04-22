@@ -12,6 +12,7 @@ import java.util.List;
 @RequestMapping("/city")
 public class CityController {
     public static List<CityModel> cityModelList = new ArrayList<CityModel>();
+    public static List<CityModel> validateList = new ArrayList<CityModel>();
     public static Integer autoId = 0;
 
     @GetMapping("/list")
@@ -48,7 +49,18 @@ public class CityController {
             } else {
                 CityModel cityModelSubmit = new CityModel(cityCreated, cityCode, countryId, ++autoId);
                 cityModelList.add(cityModelSubmit);
-                model.addAttribute("successmassage", "Successfully created!");
+                for(CityModel validate : validateList){
+                    if(validate.getCityName().equals(cityCreated) && validate.getCityCode().equals(cityCode) && validate.getCountryId().equals(countryId)){
+                        model.addAttribute("validatemessage", "City name and city code already exist!!");
+                        cityModelList.remove(cityModelSubmit);
+                        break;
+                    }
+                }
+                if (cityModelList.contains(cityModelSubmit)) {
+                    model.addAttribute("successmassage", "Successfully created!");
+                    validateList.add(cityModelSubmit);
+                }
+
             }
         }
         return "city/create";
