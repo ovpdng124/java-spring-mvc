@@ -16,58 +16,104 @@ public class CountryController {
     public static Integer autoId = 0;
 
     @GetMapping("/list")
-    public String showListPage(Model listModel){
+    public String showListPage(Model listModel) {
         listModel.addAttribute("countryList", countryModelList);
         return "country/list";
     }
 
     @GetMapping("/create")
-    public String showCreatePage(){
+    public String showCreatePage() {
         return "country/create";
     }
 
     @PostMapping("/create")
-    public String saveCountry(@RequestParam("country") String countryCreated, @RequestParam("countryCode") String countryCode, Model model){
-        if(countryCreated == null || countryCode == null || countryCreated.isEmpty() || countryCode.isEmpty()){
+    public String saveCountry(@RequestParam("country") String countryName, @RequestParam("countryCode") String countryCode, Model model) {
+        if (countryName == null || countryCode == null || countryName.isEmpty() || countryCode.isEmpty()) {
             model.addAttribute("errormessage", "Content couldn't be empty!!!");
-        }
-        else {
-            CountryModel countrySubmit = new CountryModel(countryCreated, countryCode, ++autoId);
-            countryModelList.add(countrySubmit);
-            for(CountryModel validate : validateList){
-                if(validate.getCountryName().equals(countryCreated) && validate.getCountryCode().equals(countryCode)){
+        } else {
+            CountryModel countrySubmit = new CountryModel(countryName, countryCode, ++autoId);
+            Boolean existed = false;
+            for (CountryModel validate : countryModelList) {
+                if (validate.getCountryName().equals(countryName) && validate.getCountryCode().equals(countryCode)) {
                     model.addAttribute("validatemessage", "Country name and country code already exist!!");
-                    countryModelList.remove(countrySubmit);
+                    existed = true;
+                    break;
+                }
+                if (validate.getCountryName().equals(countryName)) {
+                    model.addAttribute("validatemessage", "Country name already exist!!");
+                    existed = true;
+                    break;
+                }
+                if (validate.getCountryCode().equals(countryCode)) {
+                    model.addAttribute("validatemessage", "Country code already exist!!");
+                    existed = true;
+                    break;
                 }
             }
-            if(countryModelList.contains(countrySubmit)){
+            if (!existed) {
+                countryModelList.add(countrySubmit);
                 model.addAttribute("successmassage", "Successfully created!");
-                validateList.add(countrySubmit);
             }
         }
         return "country/create";
     }
 
     @GetMapping("/edit/{id}")
-    public String showEditPage(@PathVariable("id") Integer idEdit){
+    public String showEditPage(@PathVariable("id") Integer idEdit) {
         return "country/edit";
     }
 
     @PostMapping("/edit/{id}")
-    public String editName(@RequestParam("editedCountry") String editedCountry, @RequestParam("editedCode") String editedCode,
-                           @PathVariable("id") Integer idEdit, Model model ){
-        if(editedCountry == null || editedCode == null || editedCountry.isEmpty()  || editedCode.isEmpty()){
+    public String editName(@RequestParam("editedName") String editedName, @RequestParam("editedCode") String editedCode,
+                           @PathVariable("id") Integer idEdit, Model model) {
+        if (editedName == null || editedCode == null || editedName.isEmpty() || editedCode.isEmpty()) {
             model.addAttribute("errormessage", "Content couldn't be empty!!!");
-        }
-        else {
-            for (CountryModel countryModel : countryModelList){
-                if(countryModel.getId().equals(idEdit)){
-                    countryModel.setCountryName(editedCountry);
-                    countryModel.setCountryCode(editedCode);
-                    model.addAttribute( "successmassage", "Successfully edited!");
+        } else {
+            Boolean existed = false;
+            for (CountryModel validate : countryModelList) {
+                if (validate.getCountryName().equals(editedName) && validate.getCountryCode().equals(editedCode)) {
+                    model.addAttribute("validatemessage", "Country name and country code already existed!!");
+                    existed = true;
+                    break;
+                }
+                if (validate.getCountryName().equals(editedName)) {
+                    model.addAttribute("validatemessage", "Country name already existed!!");
+                    existed = true;
+                    break;
+                }
+                if (validate.getCountryCode().equals(editedCode)) {
+                    model.addAttribute("validatemessage", "Country code already existed!!");
+                    existed = true;
+                    break;
+                }
+            }
+            if (!existed) {
+                for (CountryModel edited : countryModelList) {
+                    if (edited.getId().equals(idEdit)) {
+                        edited.setCountryName(editedName);
+                        edited.setCountryCode(editedCode);
+                        model.addAttribute("successmassage", "Successfully edited!");
+                    }
                 }
             }
         }
         return "country/edit";
+    }
+
+    @GetMapping("/delete/{id}")
+    public String showDeletePage() {
+        return "country/delete";
+    }
+
+    @PostMapping("/delete/{id}")
+    public String deleteCountry(@PathVariable("id") Integer countryId) {
+        List<CountryModel> deleteObject = new ArrayList<CountryModel>();
+        for (CountryModel delete : countryModelList) {
+            if (delete.getId().equals(countryId)) {
+                deleteObject.add(delete);
+            }
+        }
+        countryModelList.removeAll(deleteObject);
+        return "redirect:/country/list";
     }
 }

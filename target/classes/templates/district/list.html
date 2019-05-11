@@ -22,6 +22,7 @@
             <th>District</th>
             <th>Code</th>
             <th>Edit</th>
+            <th>Delete</th>
         </tr>
         <tr th:each="d_list : ${districtList}">
             <td th:utext="${d_list.id}" hidden="true"></td>
@@ -29,7 +30,10 @@
             <td th:utext="${d_list.districtName}"></td>
             <td th:utext="${d_list.districtCode}"></td>
             <td>
-                <button><a th:href="@{/district/} + ${d_list.id} + @{/edit}">Edit</a></button>
+                <button><a th:href="@{/district/edit/} + ${d_list.id}">Edit</a></button>
+            </td>
+            <td>
+                <button><a th:href="@{/district/delete/} + ${d_list.id}">Delete</a> </button>
             </td>
         </tr>
     </table>

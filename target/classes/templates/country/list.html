@@ -23,6 +23,7 @@
             <th>Edit</th>
             <th>List</th>
             <th>Create</th>
+            <th>Delete</th>
         </tr>
         <tr th:each="c_list : ${countryList}">
             <td th:utext="${c_list.id}" hidden="true"></td>
@@ -32,10 +33,13 @@
                 <button><a th:href="@{/country/edit/} + ${c_list.id}">Edit</a></button>
             </td>
             <td>
-                <button><a th:href="@{/city/} + ${c_list.id} + @{/list}">City</a> </button>
+                <button><a th:href="@{/city/list/} + ${c_list.id}">City</a> </button>
             </td>
             <td>
-                <button><a th:href="@{/city/} + ${c_list.id} + @{/create}">Create City</a> </button>
+                <button><a th:href="@{/city/create/} + ${c_list.id}">Create City</a> </button>
+            </td>
+            <td>
+                <button><a th:href="@{/country/delete/} + ${c_list.id}">Delete</a> </button>
             </td>
         </tr>
     </table>

@@ -18,26 +18,28 @@
 <div>
     <table class="table">
         <tr>
-            <th>Country ID</th>
             <th>City</th>
             <th>Code</th>
             <th>Edit</th>
             <th>List</th>
             <th>Create</th>
+            <th>Delete</th>
         </tr>
         <tr th:each="ci_list : ${cityList}">
             <td th:utext="${ci_list.id}" hidden="true"></td>
-            <td th:utext="${ci_list.countryId}"></td>
             <td th:utext="${ci_list.cityName}"></td>
             <td th:utext="${ci_list.cityCode}"></td>
             <td>
-                <button><a th:href="@{/city/} + ${ci_list.id} + @{/edit}">Edit</a></button>
+                <button><a th:href="@{/city/edit/} + ${ci_list.id}">Edit</a></button>
             </td>
             <td>
-                <button><a th:href="@{/district/} + ${ci_list.id} + @{/list}">District</a></button>
+                <button><a th:href="@{/district/list/} + ${ci_list.id}">District</a></button>
             </td>
             <td>
-                <button><a th:href="@{/district/} + ${ci_list.id} + @{/create}">Create District</a></button>
+                <button><a th:href="@{/district/create/} + ${ci_list.id}">Create District</a></button>
+            </td>
+            <td>
+                <button><a th:href="@{/city/delete/} + ${ci_list.id}">Delete</a> </button>
             </td>
         </tr>
     </table>
